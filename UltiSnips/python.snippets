@@ -6,10 +6,6 @@ def format_class(name):
     return name.replace('.', ' ').title().replace(' ', '')
 endglobal
 
-snippet pdb
-import pdb; pdb.set_trace();
-endsnippet
-
 snippet itest
 from odoo.tests import SavepointCase
 
@@ -52,14 +48,14 @@ snippet header
 # -*- coding: utf-8 -*-
 endsnippet
 
-snippet start
+snippet signature
 # Copyright `date +%Y` Akretion (https://www.akretion.com).
 # @author `git config user.name` <`git config user.email`>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 ${1}
 endsnippet
 
-snippet module
+snippet manifest
 {
     "name": "${1:Module name}",
     "summary": "${2:Module summary}",
@@ -119,39 +115,53 @@ class `!p snip.rv=format_class(t[1])`(models.TransientModel):
 endsnippet
 
 snippet fch "char"
-${1:fieldname} = fields.Char(${2})
+${1:fieldname} = fields.Char(
+	string="${2}",
+	)
 ${3}
 endsnippet
 
 snippet fint "integer"
-${1:fieldname} = fields.Integer(${2})
-${3}
+${1:fieldname} = fields.Integer(
+	string="${2}",
+	)
 endsnippet
 
 snippet ffl "float"
-${1:fieldname} = fields.Float(digits=dp.get_precision('${2:PrecisionName}')${3})
-${4}
+${1:fieldname} = fields.Float(
+	string="${2}",
+	digits=dp.get_precision('${3:PrecisionName}')${4})
+	)
+${5}
 endsnippet
 
 snippet fbo "boolean"
-${1:fieldname} = fields.Boolean(${2:})
+${1:fieldname} = fields.Boolean(
+	string="${2}",
+	)
 ${3}
 endsnippet
 
 snippet fdt "date"
-${1:fieldname} = fields.Date(${2})
+${1:fieldname} = fields.Date(
+	string="${2}",
+	)
 ${3}
 endsnippet
 
 snippet fdti "datetime"
-'${1:fieldname}': fields.datetime('${2:Label}', ${3}),${4}
+${1:fieldname} = fields.datetime(
+	string="${2}",
+	)
 endsnippet
 
 snippet fsl "selection"
-${1:fieldname} = fields.Selection([
-	${2:('', '')}
+${1:fieldname} = fields.Selection(
+	string="${2}",
+	selection=[
+	${3:('', '')}
 	],
-	${3})
+	)
 ${4}
 `!p snip._parent.globals['last_field'] = t[1]`
 endsnippet
